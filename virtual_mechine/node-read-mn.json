@@ -1,0 +1,232 @@
+[
+    {
+        "id": "92e7c101cabb7cf1",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "50c11a9715c24bac",
+        "type": "inject",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 140,
+        "wires": [
+            [
+                "e7841b33eefb491b"
+            ]
+        ]
+    },
+    {
+        "id": "e7841b33eefb491b",
+        "type": "Container",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "platform": "871e7136df4fba6c",
+        "name1": "5ef8842469882051",
+        "viewtype": "autre",
+        "viewunid1": "VIRUS_ACTIVE_DATA",
+        "x": 360,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb291727b4b7be7b",
+        "type": "inject",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "ef49c3c7a634522b"
+            ]
+        ]
+    },
+    {
+        "id": "ef49c3c7a634522b",
+        "type": "Container",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "platform": "871e7136df4fba6c",
+        "name1": "5ef8842469882051",
+        "viewtype": "autre",
+        "viewunid1": "VIRUS_DATA",
+        "x": 360,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c499e6a431fe1ca6",
+        "type": "http in",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "url": "/DataCollect",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "d2f1b9cd74eff61f"
+            ]
+        ]
+    },
+    {
+        "id": "d2f1b9cd74eff61f",
+        "type": "xml",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "bba0ae960332e464"
+            ]
+        ]
+    },
+    {
+        "id": "bba0ae960332e464",
+        "type": "function",
+        "z": "92e7c101cabb7cf1",
+        "name": "function 8",
+        "func": "var data = msg.payload[\"m2m:sgn\"].nev[0].rep[0][\"m2m:cin\"][0].con[0];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 500,
+        "wires": [
+            [
+                "e9618308ab3beefa"
+            ]
+        ]
+    },
+    {
+        "id": "e9618308ab3beefa",
+        "type": "xml",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 390,
+        "y": 500,
+        "wires": [
+            [
+                "73cd752afde14171"
+            ]
+        ]
+    },
+    {
+        "id": "73cd752afde14171",
+        "type": "function",
+        "z": "92e7c101cabb7cf1",
+        "name": "function 9",
+        "func": "var New = { index: null, DefenceCheck: null, dfStrength:null };\nNew.index = msg.payload.obj.str[0].$.val;\nNew.DefenceCheck = msg.payload.obj.str[1].$.val;\nNew.dfStrength=msg.payload.obj.str[2].$.val;\nmsg.payload = New.index+\",\"+New.DefenceCheck+\",\"+ New.dfStrength ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "5a5217df60c85db3",
+                "93909dbd2659094a"
+            ]
+        ]
+    },
+    {
+        "id": "5a5217df60c85db3",
+        "type": "debug",
+        "z": "92e7c101cabb7cf1",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "93909dbd2659094a",
+        "type": "file",
+        "z": "92e7c101cabb7cf1",
+        "name": "",
+        "filename": "/home/om2m/Desktop/Data.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 810,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "871e7136df4fba6c",
+        "type": "xN_CSE",
+        "platform": "mn-cse",
+        "URLBase": "http://127.0.0.1:8282/~/mn-cse/mn-name",
+        "user": "admin",
+        "password": "admin"
+    },
+    {
+        "id": "5ef8842469882051",
+        "type": "AE",
+        "appId": "LocalServer"
+    }
+]
