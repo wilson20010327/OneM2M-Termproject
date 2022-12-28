@@ -1,0 +1,562 @@
+[
+    {
+        "id": "bd11eb4cebfa8136",
+        "type": "tab",
+        "label": "流程1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bad1b0571488c983",
+        "type": "file",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "filename": "D:/成大/四上/物聯網核心網路技術/final/active.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 880,
+        "y": 220,
+        "wires": [
+            [
+                "d256aeaf0ee5c512"
+            ]
+        ]
+    },
+    {
+        "id": "717b4d2837b0e7e9",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 1",
+        "func": "msg.payload=1\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 220,
+        "wires": [
+            [
+                "bad1b0571488c983"
+            ]
+        ]
+    },
+    {
+        "id": "437340d1bcaa1635",
+        "type": "http in",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "url": "/VirusActive",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 220,
+        "wires": [
+            [
+                "717b4d2837b0e7e9",
+                "e0cda238addc02d6"
+            ]
+        ]
+    },
+    {
+        "id": "d256aeaf0ee5c512",
+        "type": "http response",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1210,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e0cda238addc02d6",
+        "type": "debug",
+        "z": "bd11eb4cebfa8136",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1fdf9c37fabca63d",
+        "type": "http in",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "url": "/GetVirus",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "4d9cdef82b95c810"
+            ]
+        ]
+    },
+    {
+        "id": "4d9cdef82b95c810",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 9",
+        "func": "var data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t<cnf>message</cnf>\\\n\t<con>\\\n\t  &lt;obj&gt;\\\n\t\t&lt;str name=&quot;time&quot; val=&quot;'+ msg.payload.time + '&quot;/&gt;\\\n\t\t&lt;str name=&quot;MaxNumberOfFarm&quot; val=&quot;'+ msg.payload.Sum_of_Farm + '&quot;/&gt;\\\n\t  &lt;/obj&gt;\\\n\t</con>\\\n</m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 100,
+        "wires": [
+            [
+                "8c149f2271e28406"
+            ]
+        ]
+    },
+    {
+        "id": "8c149f2271e28406",
+        "type": "http request",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.201.128:8282/~/mn-cse/mn-name/LocalServer/VIRUS_ACTIVE_DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 100,
+        "wires": [
+            [
+                "b130e4713006963e",
+                "03b9c83cbbd625e0"
+            ]
+        ]
+    },
+    {
+        "id": "b130e4713006963e",
+        "type": "debug",
+        "z": "bd11eb4cebfa8136",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "03b9c83cbbd625e0",
+        "type": "http response",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 950,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ea6582cf15c42a01",
+        "type": "http in",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "url": "/VirusData",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 320,
+        "wires": [
+            [
+                "c3cce509809730c9"
+            ]
+        ]
+    },
+    {
+        "id": "c3cce509809730c9",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 10",
+        "func": "var data = '<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">\\\n\t<cnf>message</cnf>\\\n\t<con>\\\n\t  &lt;obj&gt;\\\n\t\t&lt;str name=&quot;index&quot; val=&quot;'+ msg.payload.index + '&quot;/&gt;\\\n\t\t&lt;str name=&quot;DefenceCheck&quot; val=&quot;'+ msg.payload.DefenceCheck + '&quot;/&gt;\\\n\t  \t&lt;str name=&quot;dfStrength&quot; val=&quot;'+ msg.payload.dfStrength + '&quot;/&gt;\\\n\t  &lt;/obj&gt;\\\n\t</con>\\\n</m2m:cin>';\n\nmsg.payload = data;\nmsg.headers = {};\nmsg.headers['X-M2M-Origin'] = 'admin:admin';\nmsg.headers['Content-Type'] = 'application/xml;ty=4';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 320,
+        "wires": [
+            [
+                "8437069ef9c7aca1"
+            ]
+        ]
+    },
+    {
+        "id": "8437069ef9c7aca1",
+        "type": "http request",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.201.128:8282/~/mn-cse/mn-name/LocalServer/VIRUS_DATA",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 630,
+        "y": 320,
+        "wires": [
+            [
+                "3cf544b5edc8308a",
+                "4b9a1619edfa07ea"
+            ]
+        ]
+    },
+    {
+        "id": "3cf544b5edc8308a",
+        "type": "debug",
+        "z": "bd11eb4cebfa8136",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "4b9a1619edfa07ea",
+        "type": "http response",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 950,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f3ce143be195bfdb",
+        "type": "http in",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "url": "/ChangeDefence",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 500,
+        "wires": [
+            [
+                "e15f6c057e9d0d8c",
+                "02626f3c5a0441f9"
+            ]
+        ]
+    },
+    {
+        "id": "97d5b4bee0b387bc",
+        "type": "debug",
+        "z": "bd11eb4cebfa8136",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "e15f6c057e9d0d8c",
+        "type": "xml",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 130,
+        "y": 580,
+        "wires": [
+            [
+                "b444fc11493e11ec"
+            ]
+        ]
+    },
+    {
+        "id": "b444fc11493e11ec",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 4",
+        "func": "var data = msg.payload[\"m2m:sgn\"].nev[0].rep[0][\"m2m:cin\"][0].con[0];\nmsg.payload = data\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 580,
+        "wires": [
+            [
+                "a3b34d718fa11ed9"
+            ]
+        ]
+    },
+    {
+        "id": "a3b34d718fa11ed9",
+        "type": "xml",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 130,
+        "y": 640,
+        "wires": [
+            [
+                "004ad2626a8cc408",
+                "40e5e67ce1a497b9"
+            ]
+        ]
+    },
+    {
+        "id": "004ad2626a8cc408",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 5",
+        "func": "msg.payload = msg.payload.obj.str[1].$.val;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 700,
+        "wires": [
+            [
+                "16b086cc88f4032d"
+            ]
+        ]
+    },
+    {
+        "id": "40e5e67ce1a497b9",
+        "type": "function",
+        "z": "bd11eb4cebfa8136",
+        "name": "function 11",
+        "func": "msg.payload = msg.payload.obj.str[0].$.val+\".txt\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 640,
+        "wires": [
+            [
+                "f372fa05f845f4ab"
+            ]
+        ]
+    },
+    {
+        "id": "f372fa05f845f4ab",
+        "type": "change",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 580,
+        "wires": [
+            [
+                "97d5b4bee0b387bc"
+            ]
+        ]
+    },
+    {
+        "id": "02626f3c5a0441f9",
+        "type": "change",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "dic",
+                "pt": "global",
+                "to": "D:/成大/四上/物聯網核心網路技術/final/",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "16b086cc88f4032d",
+        "type": "change",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "val",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 760,
+        "wires": [
+            [
+                "97d5b4bee0b387bc",
+                "25113832f98e9370"
+            ]
+        ]
+    },
+    {
+        "id": "25113832f98e9370",
+        "type": "file",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "filename": "$globalContext(\"dic\") &$globalContext(\"filename\")",
+        "filenameType": "jsonata",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 900,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d185d09.5d09a4",
+        "type": "inject",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1160,
+        "wires": [
+            [
+                "b18987ec.4d8fd"
+            ]
+        ]
+    },
+    {
+        "id": "b18987ec.4d8fd",
+        "type": "change",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "global",
+                "to": "$globalContext(\"dic\") &$globalContext(\"filename\")",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 290,
+        "y": 1200,
+        "wires": [
+            [
+                "fcb80581.9b311"
+            ]
+        ]
+    },
+    {
+        "id": "fcb80581.9b311",
+        "type": "debug",
+        "z": "bd11eb4cebfa8136",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 586.3333129882812,
+        "y": 1110.333251953125,
+        "wires": []
+    }
+]
